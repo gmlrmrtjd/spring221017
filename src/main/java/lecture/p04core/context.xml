@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean class="lecture.p04core.Servlet">
+		<!--  ref 속성의 값이 주입할 객체의 id 속성과 같아야 -->
+		<property name="dao" ref="dao"></property>
+	</bean>
+	<bean class="lecture.p04core.Dao"></bean>
+</beans>
