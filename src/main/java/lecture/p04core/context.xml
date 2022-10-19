@@ -9,3 +9,4 @@
 	</bean>
 	<bean class="lecture.p04core.Dao"></bean>
 </beans>
+ 

@@ -6,9 +6,9 @@ import lombok.Setter;
 import lombok.ToString;
 
 @ToString
-@EqualsAndHashCode
-@Getter
-@Setter
+//@EqualsAndHashCode
+//@Getter
+//@Setter
 public class JavaBean4 {
 	private String address;
 	private int score;
