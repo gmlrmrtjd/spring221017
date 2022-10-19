@@ -3,9 +3,9 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-	<bean class="lecture.p04core.Servlet">
-		<!--  ref 속성의 값이 주입할 bean의 id 속성과 같아야 한다 -->
-		<property name="dao" ref="dao"></property>
+	<bean class="lecture.p05core.Service">
+		<property name="repository" ref="repository"></property>
 	</bean>
-	<bean id="dao" class="lecture.p04core.Dao"></bean>
+	<bean id="repository" class="lecture.p05core.Repository"></bean>
+
 </beans>

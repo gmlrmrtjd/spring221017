@@ -9,5 +9,4 @@ public class JavaBean7 {
 	
 	private final String name; 	// final : 값을 할당할 기회를 1번만 받음 
 	private final int age;
-	
 }

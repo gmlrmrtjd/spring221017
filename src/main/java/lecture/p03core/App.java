@@ -13,7 +13,7 @@ public class App {
 		Servlet s = context.getBean(Servlet.class);
 		Dao d = context.getBean(Dao.class);
 		
-		System.out.println(s); // null이 아니면 객체가 있다.
+		System.out.println(s); // null이 아니면 객체가 있다라는 사실을 알 수 있음.
 		System.out.println(d);
 		System.out.println("프로그램계속 실행 ");
 		

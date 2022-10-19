@@ -15,6 +15,8 @@ public class App {
 		System.out.println(s); //null이 아니어야함 
 		System.out.println(d); ///null이 아니어야함 
 		
-		System.out.println("프로그램 계속 실행");
+		System.out.println(s.getDao());
+		
+		System.out.println("프로그램 계속 실행"); // exception 없이 여기까지 실행 
 	}
 }

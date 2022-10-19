@@ -4,10 +4,10 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!--  
-	spring에서 객체를 만들고 
-	dependency(필드를 대신하는 말)를 주입하라는 
-	설명서 
+	spring에서 객체를 만들고 dependency를 주입하라는 설명서 
 	
+	dependency : 필드를 대신하는 말
+	주입 : set
 	spring bean : 스프링이 만들고 관리하는 객체 
 	 -->
 	 
