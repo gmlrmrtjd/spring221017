@@ -1,4 +1,4 @@
-package lecture.p06core;
+ package lecture.p06core;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
