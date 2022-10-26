@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="org.zerock.mapper.lecture.Mapper01">
+	<select id="getEmployeeName" resultType="java.lang.String">
+		SELECT FirstName
+		FROM Employees
+		WHERE EmployeeId = 5		
+	</select>
+	
+	<select id="getProductName" resultType="string">
+		<!-- id가 3번인 상품명 조회 -->
+		SELECT ProductName
+		FROM Products
+		WHERE ProductId = 3
+	</select>
+	
+	<select id="getPrice" resultType="double">
+		SELECT Price
+		FROM Products
+		WHERE ProductId = 3
+	</select>
+	
+	<select id="getQuantity" resultType="int">
+		SELECT Quantity
+		FROM OrderDetails
+		WHERE OrderDetailId = 1
+	</select>
+	
+	<!-- sql : Date -> java : java.time.LocalDate -->
+	<!-- sql : DateTim 0> java : java.time.LocalDateTime-->
+	<select id="getBirthDate" resultType="java.time.LocalDate">
+		SELECT BirthDate
+		FROM Employees
+		WHERE EmployeeId = 3
+	</select>
+</mapper>

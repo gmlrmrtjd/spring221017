@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="org.zerock.mapper.lecture.Mapper04">
+	<select id="getProductList" resultType="org.zerock.domain.lecture.JavaBean06">
+	SELECT
+		ProductName name,
+		Price
+	FROM
+		Products
+	</select>
+	
+	<select id="getEmployeeList" resultType="org.zerock.domain.lecture.JavaBean05">
+	SELECT 
+		FirstName,
+		LastName
+	FROM
+		Employees
+	</select>
+	
+</mapper>

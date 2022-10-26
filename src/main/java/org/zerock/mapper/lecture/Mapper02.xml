@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="org.zerock.mapper.lecture.Mapper02">
+	<select id="getCustomerNames" resultType="string">
+	SELECT CustomerName
+	FROM Customers
+	</select>
+	
+	<select id="getCustomerIds" resultType="int">
+	SELECT CustomerId
+	FROM Customers
+	</select>
+	
+	<select id="getProductPrices" resultType="double">
+	SELECT Price
+	FROM Products
+	</select>
+	
+	<select id="getEmployeeBirthDate" resultType="java.time.LocalDate">
+	SELECT BirthDate
+	FROM Employees
+	</select>
+</mapper>

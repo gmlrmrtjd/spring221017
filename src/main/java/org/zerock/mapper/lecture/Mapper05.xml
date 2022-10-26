@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="org.zerock.mapper.lecture.Mapper05">
+	<select id="getOrder" resultType="org.zerock.domain.lecture.JavaBean07">
+SELECT 
+	o.OrderID     id,
+    o.OrderDate   date,
+    e.EmployeeID  employeeId,
+    e.FirstName   employeeFirstName,
+    e.LastName    employeeLastName
+FROM Orders o JOIN Employees e ON o.EmployeeID = e.EmployeeID
+WHERE o.OrderId = 10248	
+	</select>
+
+		<select id="getOrder2" resultMap="orderMap">
+SELECT 
+	o.OrderID     id,
+    o.OrderDate   date,
+    e.EmployeeID  employeeId,
+    e.FirstName   employeeFirstName,
+    e.LastName    employeeLastName
+FROM Orders o JOIN Employees e ON o.EmployeeID = e.EmployeeID
+WHERE o.OrderId = 10248	
+	</select>
+	
+	<resultMap type="org.zerock.domain.lecture.JavaBean08" id="orderMap">
+		<result column="id" property="id"/>
+		<result column="date" property="date"/>
+		<association property="employee">
+			<result column="employeeId" property="id"/>
+			<result column="employeeFirstName" property="firstName"/>
+			<result column="employeeLastName" property="lastName"/>
+		</association>
+	</resultMap>
+
+
+	<select id="getProduct" resultMap="productMap">
+	SELECT 
+		p.productId,
+	    p.productName,
+	    p.price	,
+	    s.supplierId,
+	    s.supplierName,
+	    s.phone
+	FROM 
+		Products p JOIN Suppliers s
+	    ON p.SupplierID = s.SupplierID
+	WHERE
+		p.ProductID = 10
+	</select>
+	<!-- key 값은 id로 하는것이 퍼포먼스가 좋다  -->
+	<resultMap type="org.zerock.domain.lecture.JavaBean06" id="productMap">
+		<id column="productId" property="id"/>
+		<result column="productName" property="name"/>
+		<result column="price" property="price"/>
+		<association property="supplier">
+			<id column="supplierID" property="id"/>
+			<result column="supplierName" property="name"/>
+			<result column="phone" property="phone"/>
+		</association>
+	</resultMap>
+</mapper>

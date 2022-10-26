@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="org.zerock.mapper.lecture.Mapper03">
+	
+	<select id="getCustomer" resultMap="customerNameCountryMap">
+	SELECT CustomerName, Country
+	FROM Customers
+	WHERE CustomerID = 77
+	</select>
+	
+	<resultMap type="org.zerock.domain.lecture.JavaBean04" id="customerNameCountryMap">
+		<result column="CustomerName" property="name"/>
+		<result column="Country" property="country"/>
+	</resultMap>
+	
+	
+	<select id="getEmployee" resultMap="employeeFullName">
+	SELECT FirstName, LastName
+	FROM Employees
+	WHERE EmployeeId = 5
+	</select>
+	
+	<resultMap type="org.zerock.domain.lecture.JavaBean05" id="employeeFullName">
+		<result column="FirstName" property="firstName"/>
+		<result column="LastName" property="lastName"/>
+	</resultMap>
+	
+	<!--  resultType을 BEAN으로 할 경우 빈에서 같은 이름의 프로퍼티를 알아서 찾는다 -->
+	<!--  resultMap 생략이 가능하다. -->
+	<select id="getEmployee2" resultType="org.zerock.domain.lecture.JavaBean05">
+	SELECT FirstName, LastName
+	FROM Employees
+	WHERE EmployeeId = 3
+	</select>
+	
+	<!-- name -> JavaBean04.setName()  -->
+	<!-- javabean의 이름과 같게 만들기  -->
+	<select id="getCustomer2" resultType="org.zerock.domain.lecture.JavaBean04">
+	SELECT CustomerName name, 
+		   Country
+	FROM Customers
+	WHERE CustomerId = 55
+	</select>
+	
+	<select id="getProduct" resultType="org.zerock.domain.lecture.JavaBean06">
+	SELECT
+		Price,
+		ProductName name
+	FROM
+		Products
+	WHERE
+		ProductID = 8	
+	</select>
+</mapper>
