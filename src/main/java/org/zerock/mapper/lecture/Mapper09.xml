@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="org.zerock.mapper.lecture.Mapper09">
+
+	<!-- preparedStatement 쿼리의 '?'는 #{파라미터명} -->
+	<select id="getCustomerNameById" resultType="string">
+	SELECT
+		CustomerName
+	FROM
+		Customers
+	WHERE
+		CustomerID = #{id}
+	</select>
+	
+	<select id="getEmployeeFirstNameById" resultType="string">
+	SELECT
+		FirstName
+	FROM
+		Employees
+	WHERE 
+		EmployeeId = #{employeeId}
+	</select>
+	
+	<select id="getCustomerNameByCityAndCountry" resultType="string">
+	SELECT
+		CustomerName
+	FROM
+		Customers
+	WHERE
+		City = #{city}
+		And Country = #{country}
+	</select>
+	
+	<select id="getSupplierNameByCityAndCountry" resultType="string">
+	SELECT
+		SupplierName
+	FROM 
+		Suppliers
+	WHERE
+		City = #{location}
+		AND Country = #{nation}
+	</select>
+	
+	<!-- mapper.java에 자바빈이 매개로 들어갈 경우  -->
+	<!-- property가 하나일 때 그냥 이름 적으면 됨  -->
+	<select id="getContactName" resultType="string">
+	SELECT 
+		ContactName
+    FROM
+		Customers
+	WHERE 
+		CustomerName = #{name}
+		AND Country = #{country}
+	</select>
+	
+		<select id="getSupplierContactName" resultType="string">
+	SELECT 
+		SupplierName
+    FROM
+		Suppliers
+	WHERE 
+		SupplierName = #{name}
+		AND Country = #{country}
+	</select>
+	
+	<select id="getProductName" resultType="string">
+	SELECT
+		p.ProductName
+	FROM
+		Products p
+	WHERE
+		CategoryId = #{b16.categoryId}
+        AND Price >= #{b17.price}
+	</select>
+</mapper>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="org.zerock.mapper.lecture.Mapper07">
+
+	<select id="getCategory" resultMap="categoryMap">
+	SELECT 
+		c.CategoryID,
+        c.CategoryName,
+        p.ProductName,
+        p.Price
+    FROM 
+		Categories c JOIN Products p ON c.CategoryId = p.CategoryId
+	WHERE
+		c.CategoryId = 7
+	</select>
+	
+	<resultMap type="org.zerock.domain.lecture.JavaBean13" id="categoryMap">
+		<id column="categoryId" property="id"/>
+		<result column="categoryName" property="name"/>
+		<collection property="product" ofType="org.zerock.domain.lecture.JavaBean14">
+			<id column="productId" property="id"/>
+			<result column="productName" property="name"/>
+			<result column="price" property="price"/>
+		</collection>
+	</resultMap>
+</mapper>

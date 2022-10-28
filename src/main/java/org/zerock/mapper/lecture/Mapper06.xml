@@ -29,6 +29,8 @@
 		s.SupplierID,
 	    s.SupplierName,
 	    p.ProductName
+	    p.ProductId,
+	    p.Price
 	FROM 
 		Products p JOIN Suppliers s ON p.SupplierID = s.SupplierID
 	WHERE 
@@ -39,7 +41,9 @@
 		<id column="supplierID" property="id"/>
 		<result column="supplierName" property="name"/>
 		<collection property="productName" ofType="string">
-			<result column="productName"/>
+			<id column="ProductId" property="id"/>
+			<result column="productName" property="name"/>
+			<result column="price"/>
 		</collection>
 	</resultMap>
 </mapper>

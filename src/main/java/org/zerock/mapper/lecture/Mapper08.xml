@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="org.zerock.mapper.lecture.Mapper08">
+
+	<!--  xml에서 <, > 등의 기호를 사용할 수 없음 -->
+	<!--  1. entity 로 해결 -->
+	<!--  2. CDATA 요소 사용 -->
+
+	<!-- 1.entity -->
+	<select id="getProductName" resultType="string">
+SELECT 
+	ProductName
+FROM 
+	Products
+WHERE 
+	Price &lt;= 20.00	
+	</select>
+	
+	<!-- 2.CDATA -->
+	<select id="getProductName2" resultType="string">
+<![CDATA[
+	SELECT 
+		ProductName
+	FROM 
+		Products
+	WHERE 
+		Price <= 20.00	
+]]>
+	</select>
+	
+	<select id="getEmployeeFirstName" resultType="string">
+<![CDATA[
+SELECT
+	FirstName
+FROM 	
+	Employees
+WHERE 
+	BirthDate < '1960-01-01'
+]]>
+	</select>
+
+</mapper>
+
+
+
+
+
