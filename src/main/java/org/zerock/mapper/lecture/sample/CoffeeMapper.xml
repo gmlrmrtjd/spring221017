@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="org.zerock.mapper.lecture.sample.CoffeeMapper">
+	<select id="getCoffeeList" resultType="org.zerock.domain.lecture.sample.CoffeeDto">
+	SELECT 
+		name,
+		coffee
+	FROM 
+		Coffee
+	ORDER BY name
+	</select>
+	
+	<update id="update">
+	UPDATE Coffee
+	SET coffee = #{coffee}
+	WHERE name = #{name}
+	</update>
+</mapper>
+
+
+
+
+
+
+
+
+

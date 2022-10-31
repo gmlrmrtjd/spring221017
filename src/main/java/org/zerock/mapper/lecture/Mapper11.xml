@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="org.zerock.mapper.lecture.Mapper11">
+	<select id="getCustomerById" resultType="org.zerock.domain.lecture.JavaBean18">
+	SELECT
+		CustomerId id,
+		CustomerName name,
+		ContactName,
+		Address,
+		City,
+		PostalCode,
+		Country
+	FROM
+		Customers
+	WHERE
+		CustomerId = #{id}
+	</select>
+
+	<update id="updateCustomer">
+	UPDATE Customers
+	SET
+		CustomerName = #{name},
+	    ContactName =#{contactName},
+	    Address = #{address},
+	    City = #{city},
+	    PostalCode = #{postalCode},
+	    Country = #{country}
+	WHERE
+		CustomerId = #{id};
+	</update>
+	
+	<select id="getSupplierById" resultType="org.zerock.domain.lecture.JavaBean19">
+	SELECT
+		SupplierId id,
+		SupplierName name,
+		ContactName,
+		Address,
+		City,
+		PostalCode,
+		Country,
+		Phone
+	FROM
+		Suppliers
+	WHERE
+		SupplierId = #{id}
+	</select>
+	
+	<update id="updateSupplier">
+	UPDATE Suppliers
+	SET
+		SupplierName = #{name},
+	    ContactName = #{contactName},
+	    Address = #{address},
+	    City = #{city},
+	    PostalCode = #{postalCode},
+	    Country = #{country},
+	    Phone = #{phone}
+	WHERE
+		SupplierId = #{id};
+	</update>
+	
+		<update id="updateBank">
+	UPDATE Bank
+	SET balance = balance + (#{money})
+	WHERE 
+		account = #{account}
+	</update>
+</mapper>
