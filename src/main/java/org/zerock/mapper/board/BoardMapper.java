@@ -8,7 +8,7 @@ public interface BoardMapper {
 
 	int insert(BoardDto board);  // xml에 insert 요소(id) 있어야함.
 	
-	List<BoardDto> list(int offset, int records);  // resultType에 이름 복붙 
+	List<BoardDto> list(int offset, int records, String type, String keyword);  // resultType에 이름 복붙 
 	
 	BoardDto select(int id);
 	
@@ -16,7 +16,7 @@ public interface BoardMapper {
 	
 	int delete(int id);
 	
-	int countAll();
+	int countAll(String keyword);
 }
 
 
