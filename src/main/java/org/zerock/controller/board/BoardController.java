@@ -55,6 +55,10 @@ public class BoardController {
 			Model model) {
 		// request param
 		// business logic
+		System.out.println(page);
+		System.out.println(type);
+		System.out.println(keyword);
+		
 		List<BoardDto> list = service.listBoard(page, type, keyword, pageInfo);
 		
 		// add attribute

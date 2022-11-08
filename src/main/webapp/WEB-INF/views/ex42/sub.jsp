@@ -2,8 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.util.*" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="my" tagdir="/WEB-INF/tags" %>
-
 <% request.setCharacterEncoding("utf-8"); %>
 <!DOCTYPE html>
 <html>
@@ -15,34 +13,29 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-	<my:navBar active="register"></my:navBar>
-	<div class="container-md">
-		<div class="row">
-			<div class="col">
-				<h1>게시물 작성</h1>
-				<form action="" method="post">
-					<div class="mb-3">
-						<label for="" class="form-label">제목</label>
-						<input type="text" class="form-control" name="title">
-					</div>
-					<div class="mb-3">
-						<label for="" class="form-label">본문</label>
-						<textarea rows="5" class="form-control" name="content"></textarea>
-					</div>
-					<div class="mb-3">
-						<label for="" class="form-label">작성자</label>
-						<input type="text" class="form-control" name="writer">
-					</div>
-					
-					<input class="btn btn-primary" type="submit" value="등록">
-				
-				
-				</form>
-			</div>
-		</div>
-	</div>
-	
-	
+	<h1>Accept 요청 헤더를 처리하는 콘트롤러 메소드</h1>
+	<button id="btn1">/ed42/sub01 요청</button>
+	<br>
+	<button id="btn2">/ex42/sub01 요청 (Accept : text/html)</button>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
+<script>
+	const ctx = "${pageContext.request.contextPath}";
+	document.querySelector("#btn1").addEventListener("click", function() {
+		fetch(ctx + "/ex42/sub01", {
+			headers : {
+				"Accept" : "text/plain"
+			}
+		});
+	});
+	
+	document.querySelector("#btn2").addEventListener("click", function() {
+		fetch(ctx + "/ex42/sub01", {
+			headers : {
+				"Accept" : "text/html"
+			}
+		});
+	});
+</script>
 </body>
 </html>

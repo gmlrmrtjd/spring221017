@@ -1,7 +1,50 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="org.zerock.mapper.boardEx.BoardExMapper">
+
+	<insert id="insert">
+	INSERT INTO Board (title, content, writer)
+	VALUES (#{title}, #{content}, #{writer})
+	</insert>
+	
+	<select id="list" resultType="org.zerock.domain.boardEx.BoardExDto">
+	SELECT
+		id,
+		title,
+		writer,
+		inserted
+	FROM Board
+	ORDER BY id DESC
+	</select>
+	
+	<select id="select" resultType="org.zerock.domain.boardEx.BoardExDto">
+	SELECT
+		id,
+		title,
+		content,
+		writer,
+		inserted
+	FROM
+		Board
+	WHERE
+		id = #{id}
+	</select>
+	
+	<update id="update">
+	UPDATE Board
+	SET
+		title = #{title},
+		content = #{content},
+		writer = #{writer}
+	WHERE
+		id = #{id}
+	</update>
+	
+	<delete id="delete">
+	DELETE FROM Board
+	WHERE id = #{id}
+	</delete>
 </mapper>
