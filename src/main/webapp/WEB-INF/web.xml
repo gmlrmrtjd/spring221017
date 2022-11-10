@@ -23,6 +23,9 @@
 			<param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
+		<multipart-config>
+			<max-file-size>20971520</max-file-size>
+		</multipart-config>
 	</servlet>
 		
 	<servlet-mapping>
@@ -40,7 +43,6 @@
 	</filter>
 	
 	<filter-mapping>
-	
 		<filter-name>encodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 		</filter-mapping>

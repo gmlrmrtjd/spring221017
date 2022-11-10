@@ -17,8 +17,10 @@ public class BoardExService {
 		return mapper.insert(board);
 	}
 
-	public List<BoardExDto> listBoard() {
-		// TODO Auto-generated method stub
+	public List<BoardExDto> listBoard(int page) {
+		int records = 10;
+		int offset = (page -1) * records;
+		
 		return mapper.list();
 	}
 

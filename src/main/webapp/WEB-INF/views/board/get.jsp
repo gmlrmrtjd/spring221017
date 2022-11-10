@@ -46,6 +46,15 @@
 					<textarea rows="5" class="form-control" readonly>${board.content }</textarea>
 				</div>
 				
+				<%-- 이미지 출력 --%>
+				<div>
+					<c:forEach items="${board.fileName }" var="name">
+						<div>
+							<img class="img-fluid img-thumbnail" src="/image/${board.id }/${name}" alt="">
+						</div>
+					</c:forEach>		
+				</div>
+				
 				<div class="mb-3">
 					<label for="" class="form-label">
 						작성자 
@@ -67,22 +76,38 @@
 	
 	<hr>
 	
-	<div id="replyMessage1">
+	<%-- 댓글 메시지 토스트 --%>
+	<div id="replyMessageToast" class="toast align-items-center top-0 start-50 translate-middle-x position-fixed" role="alert" aria-live="assertive" aria-atomic="true">
+	  <div class="d-flex">
+	    <div id="replyMessage1" class="toast-body">
+	      Hello, world! This is a toast message.
+	    </div>
+	    <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+	  </div>
 	</div>
 	
 	<div class="container-md">
 		<div class="row">
 			<div class="col">
+				<h3><i class="fa-solid fa-comments"></i></h3>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<%-- 댓글 작성 --%>
 				<input type="hidden" id="boardId" value="${board.id }">
-				<input type="text" id="replyInput1">
-				<button id="replySendButton1">댓글쓰기</button>
+				
+				<div class="input-group">
+					<input type="text" class="form-control" id="replyInput1">
+					<button class="btn btn-outline-secondary" id="replySendButton1"><i class="fa-solid fa-reply"></i></button>
+				</div>
 			</div>
 		</div>
 		
-		<div class="row">
+		<div class="row mt-3">
 			<div class="col">
-				<div id="replyListContainer">
-				
+				<div class="list-group" id="replyListContainer">
+					<%-- 댓글 리스트 출력되는 곳 --%>
 				</div>
 			</div>
 		</div>
@@ -109,7 +134,6 @@
 	  </div>
 	</div>
 	
-	
 	<%-- 댓글 수정 모달 --%>
 	<!-- Modal -->
 	<div class="modal fade" id="modifyReplyFormModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -120,11 +144,11 @@
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
 	      <div class="modal-body">
-	        <input type="text" id="modifyReplyInput">
+	        <input type="text" class="form-control" id="modifyReplyInput">
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-	        <button type="button" data-bs-dismiss="modal" id="modifyFormModalSubmitButton" class="btn btn-danger">수정</button>
+	        <button type="button" data-bs-dismiss="modal" id="modifyFormModalSubmitButton" class="btn btn-primary">수정</button>
 	      </div>
 	    </div>
 	  </div>
@@ -135,6 +159,9 @@
 const ctx = "${pageContext.request.contextPath}";
 
 listReply();
+
+// 댓글 crud 메시지 토스트
+const toast = new bootstrap.Toast(document.querySelector("#replyMessageToast"));
 
 document.querySelector("#modifyFormModalSubmitButton").addEventListener("click", function() {
 	const content = document.querySelector("#modifyReplyInput").value;
@@ -149,7 +176,10 @@ document.querySelector("#modifyFormModalSubmitButton").addEventListener("click",
 		body : JSON.stringify(data)
 	})
 	.then(res => res.json())
-	.then(data => document.querySelector("#replyMessage1").innerText = data.message)
+	.then(data => {
+		document.querySelector("#replyMessage1").innerText = data.message;
+		toast.show();
+	})
 	.then(() => listReply());
 });
 
@@ -179,10 +209,24 @@ function listReply() {
 			const removeReplyButtonId = `removeReplyButton\${item.id}`;
 			// console.log(item.id);
 			const replyDiv = `
-				<div>
-					\${item.content} : \${item.inserted}
-					<button data-bs-toggle="modal" data-bs-target="#modifyReplyFormModal" data-reply-id="\${item.id}" id="\${modifyReplyButtonId}">수정</button>
-					<button data-bs-toggle="modal" data-bs-target="#removeReplyConfirmModal" data-reply-id="\${item.id}" id="\${removeReplyButtonId}">삭제</button>
+				<div class="list-group-item d-flex">
+					<div class="me-auto">
+						<div>
+							\${item.content}
+						</div>
+							<small class="text-muted">
+								<i class="fa-regular fa-clock"></i> 
+								\${item.ago}
+							</small>
+					</div>
+					<div>
+						<button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#modifyReplyFormModal" data-reply-id="\${item.id}" id="\${modifyReplyButtonId}">
+							<i class="fa-solid fa-pen"></i>
+						</button>
+						<button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#removeReplyConfirmModal" data-reply-id="\${item.id}" id="\${removeReplyButtonId}">
+							<i class="fa-solid fa-x"></i>
+						</button>
+					</div>
 				</div>`;
 			replyListContainer.insertAdjacentHTML("beforeend", replyDiv);
 			// 수정 폼 모달에 댓글 내용 넣기
@@ -211,7 +255,10 @@ function removeReply(replyId) {
 		method: "delete"
 	})
 	.then(res => res.json())
-	.then(data => document.querySelector("#replyMessage1").innerText = data.message)
+	.then(data => {
+		document.querySelector("#replyMessage1").innerText = data.message;
+		toast.show();
+	})
 	.then(() => listReply());
 }
 
@@ -235,9 +282,15 @@ document.querySelector("#replySendButton1").addEventListener("click", function()
 	.then(data => {
 		document.querySelector("#replyInput1").value = "";
 		document.querySelector("#replyMessage1").innerText = data.message;
+		toast.show();
 	})
 	.then(() => listReply());
 });
 </script>
 </body>
 </html>
+
+
+
+
+

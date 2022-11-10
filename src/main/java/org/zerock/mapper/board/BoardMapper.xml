@@ -5,6 +5,21 @@
   
 <mapper namespace="org.zerock.mapper.board.BoardMapper">
 
+	<delete id="deleteFileByBoardIdAndFileName">
+	DELETE FROM File
+	WHERE boardId = #{id} AND name = #{fileName}
+	</delete>
+	
+	<delete id="deleteFileByBoardId">
+	DELETE FROM File
+	WHERE boardId = #{id}
+	</delete>
+	
+	<insert id="insertFile">
+	INSERT INTO File (boardId, name)
+	VALUES (#{id}, #{fileName})
+	</insert>
+
 	<select id="countAll" resultType="int">
 	SELECT COUNT(*) FROM Board
 	WHERE
@@ -23,7 +38,7 @@
 		</trim>
 	</select>
 
-	<insert id="insert">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id">
 	INSERT INTO Board (title, content, writer)
 	VALUES (#{title}, #{content}, #{writer})
 	
@@ -31,43 +46,60 @@
 	
 	<select id="list" resultType="org.zerock.domain.board.BoardDto">
 	SELECT 
-		id,
-		title,
-		writer,
-		inserted
-	FROM Board
+		b.id,
+		b.title,
+		b.writer,
+		b.inserted,
+		COUNT(DISTINCT r.id) countReply,
+		COUNT(DISTINCT f.id) countFile
+	FROM Board b LEFT JOIN Reply r ON b.id = r.boardId
+	             LEFT JOIN File f ON b.id = f.boardId
 	WHERE
 		
 		<trim prefixOverrides="OR">
 			<if test="type == 'all' or type == 'title'">
-			OR title LIKE #{keyword}
+			OR b.title LIKE #{keyword}
 			</if>
 			
 			<if test="type == 'all' or type == 'content'">
-			OR content LIKE #{keyword}
+			OR b.content LIKE #{keyword}
 			</if>
 			
 			<if test="type == 'all' or type == 'writer'">
-			OR writer LIKE #{keyword}
+			OR b.writer LIKE #{keyword}
 			</if>
 		</trim>
-	
-	ORDER BY id DESC
+	GROUP BY b.id
+	ORDER BY b.id DESC
 	LIMIT #{offset}, #{records}
 	</select>
 	
-	<select id="select" resultType="org.zerock.domain.board.BoardDto">
+	<select id="select" resultMap="boardMap">
 	SELECT
-		id,
-		title,
-		content,
-		writer,
-		inserted
+		b.id,
+		b.title,
+		b.content,
+		b.writer,
+		b.inserted,
+		f.id fileId,
+		f.name fileName
 	FROM
-		Board
+		Board b LEFT JOIN File f ON b.id = f.boardId
 	WHERE
-		id = #{id}
+		b.id = #{id}
 	</select>
+	
+	<resultMap type="org.zerock.domain.board.BoardDto" id="boardMap">
+		<id column="id" property="id"></id>
+		<result column="title" property="title"/>
+		<result column="writer" property="writer"></result>
+		<result column="content" property="content"/>
+		<result column="inserted" property="inserted"/>
+		<collection property="fileName" ofType="string">
+			<result property="fileName" column="fileName"/>
+		</collection>
+	</resultMap>
+	
 	
 	<update id="update">
 	UPDATE Board
@@ -85,3 +117,4 @@
 	</delete>
 
 </mapper>
+

@@ -9,40 +9,53 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.board.BoardDto;
 import org.zerock.domain.board.PageInfo;
 import org.zerock.service.board.BoardService;
 
+
 @Controller
 @RequestMapping("board")
 public class BoardController {
-
+	
 	@Autowired
 	private BoardService service;
-	
+
 	@GetMapping("register")
 	public void register() {
-		// 게시물 작성 view로 forward한다. 
-		// 숨겨진 풀 경로 : /WEB-INF/views/board/resister.jsp
+		// 게시물 작성 view로 포워드
+		// /WEB-INF/views/board/register.jsp
 	}
 	
 	@PostMapping("register")
-	public String register(BoardDto board, RedirectAttributes rttr) {
-		// request param 수집/가공 
-		System.out.println(board);
+	public String register(
+			BoardDto board,
+			MultipartFile[] files,
+			RedirectAttributes rttr) {
+		// * 파일업로드
+		// 1. web.xml 
+		//    dispatcherServlet 설정에 multipart-config 추가
+		// 2. form 에 enctype="multipart/form-data" 속성 추가 
+		// 3. Controller의 메소드 argument type : MultipartFile 
+		
+		// request param 수집/가공
+//		System.out.println(files.length);
+//		for (MultipartFile file : files) {
+//			System.out.println(file.getOriginalFilename());
+//		}
 		
 		// business logic
-		int cnt = service.register(board);
+		int cnt = service.register(board, files);
 		
 		if (cnt == 1) {
 			rttr.addFlashAttribute("message", "새 게시물이 등록되었습니다.");
-		}
-		else {
-			rttr.addFlashAttribute("message", "세 게시물이 등록되지 않았습니다.");
+		} else {
+			rttr.addFlashAttribute("message", "새 게시물이 등록되지 않았습니다.");
 		}
 		
-		// /board/list 로 redirect
+		// /board/list로 redirect
 		return "redirect:/board/list";
 	}
 	
@@ -55,10 +68,6 @@ public class BoardController {
 			Model model) {
 		// request param
 		// business logic
-		System.out.println(page);
-		System.out.println(type);
-		System.out.println(keyword);
-		
 		List<BoardDto> list = service.listBoard(page, type, keyword, pageInfo);
 		
 		// add attribute
@@ -86,18 +95,19 @@ public class BoardController {
 	}
 	*/
 	
-	@GetMapping("get")
+	
+	@GetMapping("get") 
 	public void get(
-			// @RequestParam 생략 가능 
-			@RequestParam(name="id") int id,
+			// @RequestParam 생략 가능
+			@RequestParam(name = "id") int id,
 			Model model) {
 		// req param
 		// business logic (게시물 db에서 가져오기)
 		BoardDto board = service.get(id);
-		System.out.println(board);
 		// add attribute
-		model.addAttribute("board", board); // 모델에 넣어주는 코드 
-		// forward : 요청경로와 같으므로 생략 가능 
+		model.addAttribute("board", board);
+		// forward
+		
 	}
 	
 	@GetMapping("modify")
@@ -108,30 +118,39 @@ public class BoardController {
 	}
 	
 	@PostMapping("modify")
-	public String modify(BoardDto board, RedirectAttributes rttr) {
-		int cnt = service.update(board);
+	public String modify(
+			BoardDto board, 
+			@RequestParam("files") MultipartFile[] addFiles,
+			@RequestParam(name = "removeFiles", required = false) List<String> removeFiles,
+			RedirectAttributes rttr) {
+		
+		int cnt = service.update(board, addFiles, removeFiles);
 		
 		if (cnt == 1) {
-			rttr.addFlashAttribute("message", board.getId() + "번 게시물이 수정 되었습니다.");
-		}
-		else {
+			rttr.addFlashAttribute("message", board.getId() + "번 게시물이 수정되었습니다.");
+		} else {
 			rttr.addFlashAttribute("message", board.getId() + "번 게시물이 수정되지 않았습니다.");
 		}
-
+		
 		return "redirect:/board/list";
 	}
 	
 	@PostMapping("remove")
 	public String remove(int id, RedirectAttributes rttr) {
 		int cnt = service.remove(id);
-		// id번 게시물이 삭제되었습니다.
+		
 		if (cnt == 1) {
+			// id번 게시물이 삭제되었습니다.
 			rttr.addFlashAttribute("message", id + "번 게시물이 삭제되었습니다.");
-		}
-		// id번 게시물이 삭제되지 않았습니다.
-		else {
+		} else {
+			// id번 게시물이 삭제되지 않았습니다.
 			rttr.addFlashAttribute("message", id + "번 게시물이 삭제되지 않았습니다.");
 		}
+		
 		return "redirect:/board/list";
 	}
+	
+	
 }
+
+
