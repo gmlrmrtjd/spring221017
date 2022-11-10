@@ -142,7 +142,8 @@ public class BoardService {
 
 		File[] listFiles = folder.listFiles();
 
-		if (listFiles != null) {
+		
+		if (listFiles != null) {	// 파일이 없는경우 삭제
 			for (File file : listFiles) {
 				file.delete();
 			}
