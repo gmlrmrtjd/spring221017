@@ -3,8 +3,6 @@ package org.zerock.service.board;
 import java.io.File;
 import java.util.List;
 
-import javax.management.RuntimeErrorException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -18,7 +16,6 @@ import org.zerock.mapper.board.ReplyMapper;
 import software.amazon.awssdk.core.sync.RequestBody;
 import software.amazon.awssdk.services.s3.S3Client;
 import software.amazon.awssdk.services.s3.model.ObjectCannedACL;
-import software.amazon.awssdk.services.s3.model.PutObjectAclRequest;
 import software.amazon.awssdk.services.s3.model.PutObjectRequest;
 
 @Transactional
@@ -34,7 +31,7 @@ public class BoardService {
 	@Autowired
 	private S3Client s3Client;
 	
-	@Value("aws.s3.bucket")
+	@Value("${aws.s3.bucket}")
 	private String bucketName;
 
 	public int register(BoardDto board, MultipartFile[] files) {
@@ -65,7 +62,7 @@ public class BoardService {
 				try {
 					// s3에 파일 저장
 					// 키 생성
-					String key = "prj/board/" + board.getId() + "/" + file.getOriginalFilename();
+					String key = "prj1/board/" + board.getId() + "/" + file.getOriginalFilename();
 					
 					// putObjectRequest
 					PutObjectRequest putObjectRequest = PutObjectRequest.builder()
