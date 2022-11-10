@@ -23,7 +23,7 @@
 		<property name="dataSource" ref="dataSource"></property>
 	</bean>
 	
-	<context:property-placeholder location="/WEB-INF/props/jdbc.properties"/>
+	<context:property-placeholder location="/WEB-INF/props/jdbc.properties,/WEB-INF/props/aws.properties"/>
 	
 	<!-- mapper 스캔 -->
 	<mybatis-spring:scan base-package="org.zerock.mapper"/>
