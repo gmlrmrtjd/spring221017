@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="org.zerock.mapper.member.MemberMapper">
+  
+	<insert id="insert">
+	INSERT INTO Member (id, password, email)
+	VALUES (#{id}, #{password}, #{email})
+	</insert>
+  
+  	<select id="selectAll" resultType="org.zerock.domain.member.MemberDto">
+  	SELECT
+  		id,
+  		'숨김' password,
+  		email,
+  		inserted
+	FROM
+		Member
+	ORDER BY
+		id
+  	</select>
+  	
+  </mapper>
+  

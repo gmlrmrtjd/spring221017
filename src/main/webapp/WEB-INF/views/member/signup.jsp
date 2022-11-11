@@ -24,11 +24,11 @@
 				
 				<form action="" method="post">
 				
-				<input type = "text" name="id">
+				id <input type = "text" name="id">
 				<br>
-				<input type = "text" name="password">
+				Password<input type = "text" name="password">
 				<br>
-				<input type = "email" name="email">
+				Email<input type = "email" name="email">
 				<br>
 				<input type="submit" value="가입">
 				

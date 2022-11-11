@@ -26,7 +26,7 @@ request.setCharacterEncoding("utf-8");
 		<div class="row">
 			<div class="col">
 			
-
+				<!--  message 보여주기 -->
 				<c:if test="${not empty message }">
 					<div class="alert alert-success">
 						${message }
