@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zerock.domain.boardEx.BoardExDto;
+import org.zerock.domain.boardEx.PageInfoEx;
 import org.zerock.mapper.boardEx.BoardExMapper;
 
 @Service
@@ -17,11 +18,17 @@ public class BoardExService {
 		return mapper.insert(board);
 	}
 
-	public List<BoardExDto> listBoard(int page) {
+	// 
+	public List<BoardExDto> listBoard(int page, PageInfoEx pageInfo) {
 		int records = 10;
 		int offset = (page -1) * records;
 		
-		return mapper.list();
+		int countAll = mapper.countAll(); // 총 레코드 수 > SELECT Count(*) FROM Board
+		int lastPage = (countAll - 1) / records + 1;	// 마지막 페이지 번호 
+
+		pageInfo.setLastPageNumber(lastPage);
+		
+		return mapper.list(offset, records);
 	}
 
 	public BoardExDto get(int id) {
