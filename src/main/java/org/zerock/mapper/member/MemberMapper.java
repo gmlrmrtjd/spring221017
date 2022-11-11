@@ -10,4 +10,10 @@ public interface MemberMapper {
 
 	List<MemberDto> selectAll();
 
+	MemberDto selectById(String id);
+
+	int update(MemberDto member);
+
+	int deleteById(String id);
+
 }

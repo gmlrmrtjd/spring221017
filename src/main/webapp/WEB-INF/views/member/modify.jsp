@@ -15,41 +15,33 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
-	<my:navBar active="memberList"></my:navBar>
+	<my:navBar></my:navBar>
 	
 	<div class="container-md">
 		<div class="row">
 			<div class="col">
-				<h1>회원 목록</h1>
-				<!-- table.table>thead>tr>th*4^^tbody -->
-				<table class="table">
-					<thead>
-						<tr>
-							<th>아이디</th>
-							<th>패스워드</th>
-							<th>이메일</th>
-							<th>가입일시</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${memberList }" var="member">
-							<tr>
-<%-- 							<td>${member.id }</td> --%>
-								<td>
-								<c:url value="/member/info" var="infoLink">
-									<c:param name="id" value="${member.id }"></c:param>
-								</c:url>
-								<a href="${infoLink }">
-									${member.id }
-								</a>
-								</td>
-								<td>${member.password }</td>
-								<td>${member.email }</td>
-								<td>${member.inserted }</td>
-							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
+			
+				<c:if test="${not empty message }">
+					<div class="alert alert-success">
+						${message }
+					</div>
+				</c:if>
+				
+				<h1>회원 정보 수정</h1>
+			
+				<form action="" method="post">
+					아이디 <input type="text" value="${member.id }" readonly> <br>
+					암호 <input type="text" value="${member.password }" name="password"> <br>
+					이메일 <input type="email" value="${member.email }" name="email"> <br>
+					가입일시 <input type="text" value="${member.inserted }" readonly> <br>
+					<input type="submit" value="수정">
+				</form>
+				
+				<c:url value="/member/remove" var="removeUrl" />
+				<form action="${removeUrl }" method="post">
+					<input type="hidden" name="id" value="${member.id }">
+					<input type="submit" value="탈퇴">
+				</form>
 			</div>
 		</div>
 	</div>
