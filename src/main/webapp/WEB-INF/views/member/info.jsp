@@ -33,13 +33,35 @@
 					<c:url value="/member/modify" var="modifyLink">
 						<c:param value="${member.id }" name="id"></c:param>
 					</c:url>
-					<a href="${modifyLink }">수정</a>
-				<</h1>
+					<a class="btn btn-warning" href="${modifyLink }"><i class="fa-solid fa-pen-to-square"></i></a>
+				</h1>
 				
-				아이디 <input type="text" value="${member.id }" readonly> <br>
-				암호 <input type="text" value="${member.password }" readonly> <br>
-				이메일 <input type="text" value="${member.email }" readonly> <br>
-				가입일시 <input type="text" value="${member.inserted }" readonly> <br>
+				<div class="mb-3">
+					<label for="" class="form-label">
+						아이디 
+					</label>
+					<input class="form-control" type="text" value="${member.id }" readonly>
+				</div>
+				
+				<div class="mb-3">
+					<label for="" class="form-label">
+						암호 
+					</label>
+					<input class="form-control" type="text" value="${member.password }" readonly>
+				</div>
+				<div class="mb-3">
+					<label for="" class="form-label">
+						이메일 
+					</label>
+					<input class="form-control" type="text" value="${member.email }" readonly>
+				</div>
+				<div class="mb-3">
+					<label for="" class="form-label">
+						가입일시 
+					</label>
+					<input class="form-control" type="text" value="${member.inserted }" readonly>
+				</div>
+				
 			</div>
 		</div>
 	</div>
