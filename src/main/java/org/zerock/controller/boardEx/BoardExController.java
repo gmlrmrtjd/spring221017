@@ -2,8 +2,6 @@ package org.zerock.controller.boardEx;
 
 import java.util.List;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,19 +55,14 @@ public class BoardExController {
 		// add attribute
 		model.addAttribute("boardList", list);
 		
-		// forward
+		//  forward
 	}
 	
 	// 위 list 메소드 파라미터 PageInfo에 일어나는 일을 풀어서 작성 
 //	public void list(
 //			@RequestParam(name = "page", defaultValue = "1") int page, 
 //			HttpServletRequest request,
-//			Model model)  {
-//		// request param
-//		PageInfoEx pageInfo = new PageInfoEx();
-//		pageInfo.setLastPageNumber(Integer.parseInt(request.getParameter("lastPageNumber")));
-//		model.addAttribute("pageInfoEx", pageInfo);
-//		
+	
 //		// business logic
 //		List<BoardExDto> list = service.listBoard(page, pageInfo);
 //		

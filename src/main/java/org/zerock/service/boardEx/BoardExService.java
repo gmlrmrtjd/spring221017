@@ -26,6 +26,13 @@ public class BoardExService {
 		int countAll = mapper.countAll(); // 총 레코드 수 > SELECT Count(*) FROM Board
 		int lastPage = (countAll - 1) / records + 1;	// 마지막 페이지 번호 
 
+		int leftPageNumber = (page -1) / 10 * 10 + 1;
+		int rightPageNumber = leftPageNumber + 9;
+		rightPageNumber = Math.min(rightPageNumber, lastPage);
+		
+		pageInfo.setCurrentPageNumber(page);
+		pageInfo.setLeftPageNumber(leftPageNumber);
+		pageInfo.setRightPageNumber(rightPageNumber);
 		pageInfo.setLastPageNumber(lastPage);
 		
 		return mapper.list(offset, records);
