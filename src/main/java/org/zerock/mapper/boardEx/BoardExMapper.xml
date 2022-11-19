@@ -7,6 +7,20 @@
 
 	<select id="countAll" resultType="int">
 	SELECT COUNT(*) FROM Board
+	WHERE
+		<trim prefixOverrides="OR">
+			<if test="type == 'all' or type == 'title'">
+			OR title LIKE #{keyword}
+			</if>
+			
+			<if test="type == 'all' or type == 'content'">
+			OR content LIKE #{keyword}
+			</if>
+			
+			<if test="type == 'all' or type == 'writer'">
+			OR writer LIKE #{keyword}
+			</if>
+		</trim>
 	</select>
 	
 	<insert id="insert">
@@ -21,6 +35,21 @@
 		writer,
 		inserted
 	FROM Board
+	WHERE
+		<trim prefixOverrides="OR">
+			<if test="type == 'all' or type == 'title'">
+			OR title LIKE #{keyword}
+			</if>
+			
+			<if test="type == 'all' or type == 'content'">
+			OR content LIKE #{keyword}
+			</if>
+			
+			<if test="type == 'all' or type == 'writer'">
+			OR writer LIKE #{keyword}
+			</if>
+		</trim>
+		
 	ORDER BY id DESC
 	LIMIT #{offset}, #{records}
 	</select>

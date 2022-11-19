@@ -7,7 +7,7 @@ import org.zerock.domain.boardEx.BoardExDto;
 public interface BoardExMapper {
 	int insert(BoardExDto board);
 
-	List<BoardExDto> list(int offset, int records);
+	List<BoardExDto> list(int offset, int records, String type, String keyword);
 
 	BoardExDto select(int id);
 
@@ -15,5 +15,5 @@ public interface BoardExMapper {
 
 	int delete(int id);
 
-	int countAll();
+	int countAll(String type, String keyword);
 }

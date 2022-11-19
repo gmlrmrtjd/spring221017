@@ -44,13 +44,16 @@ public class BoardExController {
 	}
 	
 	@GetMapping("list")
-	public void list(@RequestParam(name = "page", defaultValue = "1") int page, 
+	public void list(
+			@RequestParam(name = "page", defaultValue = "1") int page, 
+			@RequestParam(name = "t", defaultValue = "all") String type,
+			@RequestParam(name = "q", defaultValue = "") String keyword,
 			PageInfoEx pageInfo,
 			Model model) {
 		// request param
 		
 		// business logic
-		List<BoardExDto> list = service.listBoard(page, pageInfo);
+		List<BoardExDto> list = service.listBoard(page, type, keyword, pageInfo);
 		
 		// add attribute
 		model.addAttribute("boardList", list);
